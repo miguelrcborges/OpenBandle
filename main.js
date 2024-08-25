@@ -94,4 +94,5 @@ function submit(track_count) {
 		loadNextLevel();
 	}
 	title_search.value = "";
+	tracks_completion.innerHTML = "";
 }
