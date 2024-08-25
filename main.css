@@ -1,0 +1,110 @@
+html, body,h1,h2,h3,h4,h5,p {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    color: white;
+    background-color: #13171f;
+
+    
+    text-rendering: optimizeLegibility;
+    overflow-wrap: break-word;
+    -moz-tab-size: 4;
+    tab-size: 4;
+    
+    font-family: system-ui, sans-serif;
+
+    max-width: 1170px;
+    margin: 0 auto;
+
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px 25px;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+
+    align-items: center;
+}
+
+/* #next-track {
+    width: 100%;
+    padding: 10px;
+
+    background-color: rgb(1, 88, 135);
+    color: white;
+
+    border: none;
+
+    border-radius: 5px;
+
+    font-size: 18px;
+}
+ */
+
+#game-window {
+    display: flex;
+    flex-direction: column;
+
+    gap: 25px;
+
+    height: fit-content;
+}
+
+#levels-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    font-size: 16px;
+}
+
+#game-more-controls{
+    display: flex;
+    flex-direction: column;
+    gap: 10px
+}
+
+#game-more-controls input{
+    flex:1;
+}
+
+#game-more-controls .buttons{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.currenthint {
+    color: rgb(71, 164, 23);
+}
+
+#levels-container p{
+    background: #424751;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+#levels-container p.currenthint{
+    transform: scale(1.2);
+    filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+}
+
+#game-more-controls #game-guess {
+    display: flex;
+}
