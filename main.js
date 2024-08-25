@@ -7,6 +7,7 @@ const level_3_el = document.querySelector("#level-3");
 const level_4_el = document.querySelector("#level-4");
 const level_5_el = document.querySelector("#level-5");
 const audio = document.querySelector("audio");
+const filters_container = document.querySelector("#filters-container");
 
 let searchTimeout = undefined;
 
@@ -43,19 +44,59 @@ title_search.addEventListener('keydown', async () => {
 })
 
 
-fetch("track_count").then(r => r.json()).then(c => {
-	document.querySelector('#next-track').addEventListener('click', () => loadTrack(c));
+const tags = {};
+
+fetch("https://raw.githubusercontent.com/miguelrcborges/OpenBandle/tracks/filters.json").then(r => r.json()).then(filters => {
+	const tags_strings = Object.keys(filters);
+	for (let i = 0; i < tags_strings.length; i += 1) {
+		const tag_filter_container = document.createElement('div');
+		const checkbox = document.createElement('input');
+		checkbox.type = 'checkbox';
+		checkbox.setAttribute('type', 'checkbox');
+		checkbox.setAttribute('name', tags_strings[i]);
+		checkbox.setAttribute('id', tags_strings[i]);
+		checkbox.checked = true;
+		tag_filter_container.appendChild(checkbox);
+		const label = document.createElement('label');
+		label.textContent = tags_strings[i][0].toUpperCase() + tags_strings[i].slice(1);
+		label.setAttribute("for", tags_strings[i]);
+		tag_filter_container.appendChild(label);
+		filters_container.appendChild(tag_filter_container);
+		tags[tags_strings[i]] = {
+			"count": filters[tags_strings[i]],
+			"checkbox": checkbox
+		};
+	}
+	loadTrack();
+	document.querySelector('#next-track').addEventListener('click', loadTrack);
 	document.querySelector('#skip').addEventListener('click', loadNextLevel);
-	document.querySelector('#submit').addEventListener('click', () => submit(c));
-	loadTrack(c);
+	document.querySelector('#submit').addEventListener('click', submit);
 });
 
 let current_track;
 let current_level;
 
-async function loadTrack(track_count) {
+async function loadTrack(filters) {
+	const keys = Object.keys(tags);
+	let track_count = 0;
+	for (let i = 0; i < keys.length; i += 1) {
+		if (tags[keys[i]].checkbox.checked) {
+			track_count += tags[keys[i]].count;
+		}
+	}
 	const id = Math.floor(Math.random() * track_count) + 1;
-	const r = await fetch(`tracks/${id}.json`);
+	let url;
+	for (let i = 0; i < keys.length; i += 1) {
+		if (tags[keys[i]].checkbox.checked == false) {
+			continue;
+		}
+		if (tags[keys[i]].count >= track_count) {
+			url = `https://raw.githubusercontent.com/miguelrcborges/OpenBandle/tracks/${keys[i]}/${track_count}.json`
+			break;
+		}
+		track_count -= tags[keys[i]].count;
+	}
+	const r = await fetch(url);
 	if (r.status != 200) {
 		location.reload()
 	}
@@ -85,10 +126,10 @@ function loadNextLevel() {
 	level_indicator.textContent = `Level ${current_level}`;
 }
 
-function submit(track_count) {
+function submit() {
 	if (title_search.value == current_track.track) {
 		alert("Congratulations, you got it correctly.");
-		loadTrack(track_count);
+		loadTrack();
 	} else {
 		alert("Wrong answer.");
 		loadNextLevel();
