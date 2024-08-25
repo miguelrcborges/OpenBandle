@@ -17,7 +17,7 @@ title_search.addEventListener('keydown', async () => {
 		const url = "https://corsproxy.io/?https://api.deezer.com/search/track?limit=10&q=" + encodeURIComponent(title_search.value);
 		const r = await fetch(url);
 		if (r.status != 200) {
-			suggestions.innerHTML = "";
+			tracks_completion.innerHTML = "";
 		}
 		const json = await r.json();
 		
