@@ -1,6 +1,8 @@
 {
 	"rock": 1,
-	"pop": 2, 
+	"pop": 5, 
 	"disco": 1,
-	"hip-hop": 1
+	"hip-hop": 1,
+	"r&b": 1,
+	"movies": 1
 }
