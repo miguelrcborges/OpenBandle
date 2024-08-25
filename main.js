@@ -84,17 +84,17 @@ async function loadTrack() {
 			track_count += tags[keys[i]].count;
 		}
 	}
-	const id = Math.floor(Math.random() * track_count) + 1;
+	let id = Math.floor(Math.random() * track_count) + 1;
 	let url;
 	for (let i = 0; i < keys.length; i += 1) {
 		if (tags[keys[i]].checkbox.checked == false) {
 			continue;
 		}
-		if (tags[keys[i]].count >= track_count) {
-			url = `https://raw.githubusercontent.com/miguelrcborges/OpenBandle/tracks/${keys[i]}/${track_count}.json`
+		if (tags[keys[i]].count >= id) {
+			url = `https://raw.githubusercontent.com/miguelrcborges/OpenBandle/tracks/${keys[i]}/${id}.json`
 			break;
 		}
-		track_count -= tags[keys[i]].count;
+		id -= tags[keys[i]].count;
 	}
 	const r = await fetch(url);
 	if (r.status != 200) {
