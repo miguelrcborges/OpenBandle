@@ -1,5 +1,5 @@
 const title_search = document.querySelector("#title-search");
-const suggestions = document.querySelector("#suggestions");
+const tracks_completion = document.querySelector("#tracks-completion");
 const level_indicator = document.querySelector("#level-indicator");
 const level_1_el = document.querySelector("#level-1");
 const level_2_el = document.querySelector("#level-2");
@@ -28,15 +28,11 @@ title_search.addEventListener('keydown', async () => {
 		
 		const elements = []
 		strings.forEach(s => {
-			const e = document.createElement('p');
-			e.textContent = s;
-			e.addEventListener('click', () => { 
-				title_search.value = e.textContent;
-				suggestions.innerHTML = "";
-			});
+			const e = document.createElement('option');
+			e.value = s;
 			elements.push(e);
 		});
-		suggestions.replaceChildren(...elements);
+		tracks_completion.replaceChildren(...elements);
 	}, 200);
 })
 
