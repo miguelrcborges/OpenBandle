@@ -76,7 +76,7 @@ fetch("https://raw.githubusercontent.com/miguelrcborges/OpenBandle/tracks/filter
 let current_track;
 let current_level;
 
-async function loadTrack(filters) {
+async function loadTrack() {
 	const keys = Object.keys(tags);
 	let track_count = 0;
 	for (let i = 0; i < keys.length; i += 1) {
