@@ -107,28 +107,21 @@ async function loadTrack() {
 	current_track = await r.json();
 	current_level = 1;
 	level_1_el.textContent = `Hint 1 - ${current_track.instruments[0]}`;
-	if (level_1_el.classList.contains("wrong")) level_1_el.classList.remove("wrong")
-	if (!level_1_el.classList.contains("current_hint") )level_1_el.classList.add("current_hint")
+	level_1_el.setAttribute("class", "current_hint")
 
 	level_2_el.textContent = `Hint 2 - ${current_track.instruments[1]}`;
-	if (level_2_el.classList.contains("wrong")) level_2_el.classList.remove("wrong")
-	if (level_2_el.classList.contains("current_hint") )level_2_el.classList.remove("current_hint")
-		
+	level_2_el.setAttribute("class", "")
 
 	level_3_el.textContent = `Hint 3 - ${current_track.instruments[2]}`;
-	if (level_3_el.classList.contains("wrong")) level_3_el.classList.remove("wrong")
-	if (level_3_el.classList.contains("current_hint") )level_3_el.classList.remove("current_hint")
+	level_3_el.setAttribute("class", "")
 		
 	level_4_el.textContent = `Hint 4 - ${current_track.instruments[3]}`;
-	if (level_4_el.classList.contains("wrong")) level_4_el.classList.remove("wrong")
-	if (level_4_el.classList.contains("current_hint") )level_4_el.classList.remove("current_hint")
-		
+	level_4_el.setAttribute("class", "")
 
 	level_5_el.textContent = `Hint 5 - ${current_track.instruments[4]}`;
-	if (level_5_el.classList.contains("wrong")) level_5_el.classList.remove("wrong")
-	if (level_5_el.classList.contains("current_hint") )level_5_el.classList.remove("current_hint")
+	level_5_el.setAttribute("class", "")
 		
-	if(document.querySelector("#loading")) document.querySelector("#loading").remove()
+	document.querySelector("#loading")?.remove()
 	level_indicator.textContent = `Current Hint: 1`;
 	gamewindow.classList.remove("hidden")
 	
