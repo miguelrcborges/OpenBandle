@@ -1,29 +1,57 @@
+*{
+    text-rendering: optimizeLegibility;
+    overflow-wrap: break-word;
+    -moz-tab-size: 4;
+    tab-size: 4;
+}
+
+.hidden{
+    display: none !important;
+}
+
+p, input {
+    font-size: 100%;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2{
+    font-size: 1.75rem;
+}
+
 html, body,h1,h2,h3,h4,h5,p {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+button {
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    padding: 10px
+}
+
 
 body {
     color: white;
-    background-color: #13171f;
-
+    background-color: #212836;
     
-    text-rendering: optimizeLegibility;
-    overflow-wrap: break-word;
-    -moz-tab-size: 4;
-    tab-size: 4;
-    
-    font-family: system-ui, sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
-    max-width: 1170px;
+    max-width: 1370px;
     margin: 0 auto;
 
     height: 100%;
 
     display: flex;
     flex-direction: column;
+
+    position: relative;
 }
 
 header {
@@ -31,31 +59,53 @@ header {
     justify-content: space-between;
     align-items: center;
 
-    padding: 15px 25px;
+    padding: 15px 10px;
+}
+
+header button {
+    background-color: #525F7A;
 }
 
 main {
     display: flex;
     justify-content: center;
-    flex: 1;
+    flex: 0.9;
 
     align-items: center;
 }
 
-/* #next-track {
-    width: 100%;
-    padding: 10px;
-
-    background-color: rgb(1, 88, 135);
-    color: white;
-
+dialog{
     border: none;
+    padding: 20px 60px;
+    background-color: #333C4E;
+    color: white;
+    border-radius: 10px;
 
-    border-radius: 5px;
 
-    font-size: 18px;
 }
- */
+
+dialog .dialog-content{
+    display: flex;
+    gap: 10px;
+
+    flex-direction: column-reverse;
+}
+
+dialog div#filters-container{
+    display: flex;
+    flex-direction: column;
+  gap: 20px;
+  padding: 10px;
+}
+
+dialog div#filters-container div input, dialog div#filters-container div label{
+cursor: pointer;
+}
+
+dialog button{
+    background-color: #AF291D;
+
+}
 
 #game-window {
     display: flex;
@@ -84,27 +134,72 @@ main {
     flex:1;
 }
 
+
+#levels-container p{
+    background: #424751;
+    padding: 5px 10px;
+    border-radius: 5px;
+
+    transition: transform 1s ease-in-out;
+
+}
+
+#levels-container p.current_hint{
+    transform: scale(1.2);
+    filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+    color: rgb(71, 164, 23);
+
+    transition: transform .3s ease-in-out;
+
+}
+
+#levels-container p.wrong{
+    color: rgb(155, 35, 24);
+    filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+    opacity: 0.8;
+}
+
+#game-more-controls #game-guess {
+    display: flex;
+}
+
+#game-more-controls #game-guess input{
+    background-color: #424751;
+
+    color: white;
+    padding: 10px;
+    border:none;
+
+    outline: none;
+    border-radius: 5px 0px 0px 5px;
+
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+#game-more-controls #game-guess input:focus{
+    outline: 1px solid #014C75;
+}
+
+#game-more-controls #game-guess button {
+    background-color: #265E09;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    color: white;
+    flex:1;
+    cursor: pointer;
+}
+
 #game-more-controls .buttons{
     display: flex;
     width: 100%;
     justify-content: space-between;
 }
 
-.currenthint {
-    color: rgb(71, 164, 23);
+
+#game-controls .buttons button#next-track {
+    background-color: #AF291D;
 }
 
-#levels-container p{
-    background: #424751;
-    padding: 5px 10px;
-    border-radius: 5px;
-}
-
-#levels-container p.currenthint{
-    transform: scale(1.2);
-    filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-}
-
-#game-more-controls #game-guess {
-    display: flex;
+#game-controls .buttons button#skip{
+    background-color: #015887;
 }

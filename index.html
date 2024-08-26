@@ -11,23 +11,28 @@
 	<header>
 		<h1>OpenBandle</h1>
 
-		<button onclick="(() => document.getElementById('filters-dialog').showModal())()">
+		<button id="filters" onclick="(() => document.getElementById('filters-dialog').showModal())()">
 			Select Filters
 		</button>
 	</header>
 	<main>
+
 		<dialog id="filters-dialog">
-			<div id="filters-container">
+			<h1>Current filters</h1>
+			<div class="dialog-content">
 				<button aria-label="Close" rel="prev" onclick="(() => document.getElementById('filters-dialog').close())()">Close</button>
+
+				<div id="filters-container">
+				</div>	
 			</div>
 		</dialog>
 
-		<h2 id="loading">Loading</h2>
+		<h2 id="loading" style="text-align: center;">Loading</h2>
 
-		<div id="game-window" style="visibility:hidden; width: fit-content;">
+		<div class="hidden" id="game-window" style="width: fit-content;">
 			<h2 id="level-indicator" style="text-align: center;">Loading</h2>
 			<div id="levels-container">
-				<p id="level-1" class="currenthint">Hint 1 - Loading</p>
+				<p id="level-1" class="current_hint">Hint 1 - Loading</p>
 				<p id="level-2">Hint 2 - Loading</p>
 				<p id="level-3">Hint 3 - Loading</p>
 				<p id="level-4">Hint 4 - Loading</p>
@@ -44,12 +49,14 @@
 
 					<datalist id="tracks-completion">
 					</datalist>
+
+					<hr/>
 					
 					<div class="buttons">
 						<button id="skip">Next Hint</button>
 						<button id="next-track">Next Track</button>	
 					</div>
-				</div>	
+				</div>
 			</div>
 		</div>
 		
