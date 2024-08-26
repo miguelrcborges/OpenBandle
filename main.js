@@ -11,7 +11,9 @@ const filters_container = document.querySelector("#filters-container");
 
 let searchTimeout = undefined;
 
-title_search.addEventListener('keydown', async () => {
+title_search.addEventListener('keydown', async (e) => {
+	if (e.key.includes("Arrow")) return;
+	
 	if (searchTimeout) {
 		clearTimeout(searchTimeout);
 	}
@@ -71,6 +73,8 @@ fetch("https://raw.githubusercontent.com/miguelrcborges/OpenBandle/tracks/filter
 	document.querySelector('#next-track').addEventListener('click', loadTrack);
 	document.querySelector('#skip').addEventListener('click', loadNextLevel);
 	document.querySelector('#submit').addEventListener('click', submit);
+	document.querySelector("#loading").remove();
+	document.querySelector("#game-window").classList.remove("hidden");
 });
 
 let current_track;
@@ -102,28 +106,41 @@ async function loadTrack() {
 	}
 	current_track = await r.json();
 	current_level = 1;
-	level_1_el.textContent = `Level 1 - ${current_track.instruments[0]}`;
-	level_2_el.textContent = `Level 2 - ${current_track.instruments[1]}`;
-	level_3_el.textContent = `Level 3 - ${current_track.instruments[2]}`;
-	level_4_el.textContent = `Level 4 - ${current_track.instruments[3]}`;
-	level_5_el.textContent = `Level 5 - ${current_track.instruments[4]}`;
-	level_indicator.textContent = `Level 1`;
+	level_1_el.textContent = `Hint 1 - ${current_track.instruments[0]}`;
+	level_1_el.setAttribute("class", "current_hint")
 
+	level_2_el.textContent = `Hint 2 - ${current_track.instruments[1]}`;
+	level_2_el.setAttribute("class", "")
+
+	level_3_el.textContent = `Hint 3 - ${current_track.instruments[2]}`;
+	level_3_el.setAttribute("class", "")
+		
+	level_4_el.textContent = `Hint 4 - ${current_track.instruments[3]}`;
+	level_4_el.setAttribute("class", "")
+
+	level_5_el.textContent = `Hint 5 - ${current_track.instruments[4]}`;
+	level_5_el.setAttribute("class", "")
+		
+	level_indicator.textContent = `Current Hint: 1`;
+	
 	audio.src = current_track.audios[0];
 	audio.load();
 }
 
 function loadNextLevel() {
 	if (current_level == 5) {
-		alert("You are already at the last level. More hints can't be given.");
+		alert("You are already at the last hint. More hints can't be given.");
 		return;
 	}
 	
 	audio.pause();
 	audio.src = current_track.audios[current_level];
 	audio.load();
+	document.getElementById(`level-${current_level}`).setAttribute("class", "wrong");
 	current_level += 1;
-	level_indicator.textContent = `Level ${current_level}`;
+	level_indicator.textContent = `Current Hint: ${current_level}`;
+
+	document.getElementById(`level-${current_level}`).classList.add("current_hint");
 }
 
 function submit() {
