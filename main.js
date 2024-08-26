@@ -9,8 +9,6 @@ const level_5_el = document.querySelector("#level-5");
 const audio = document.querySelector("audio");
 const filters_container = document.querySelector("#filters-container");
 
-const gamewindow = document.querySelector("#game-window")
-
 let searchTimeout = undefined;
 
 title_search.addEventListener('keydown', async (e) => {
@@ -75,6 +73,8 @@ fetch("https://raw.githubusercontent.com/miguelrcborges/OpenBandle/tracks/filter
 	document.querySelector('#next-track').addEventListener('click', loadTrack);
 	document.querySelector('#skip').addEventListener('click', loadNextLevel);
 	document.querySelector('#submit').addEventListener('click', submit);
+	document.querySelector("#loading").remove();
+	document.querySelector("#game-window").classList.remove("hidden");
 });
 
 let current_track;
@@ -121,9 +121,7 @@ async function loadTrack() {
 	level_5_el.textContent = `Hint 5 - ${current_track.instruments[4]}`;
 	level_5_el.setAttribute("class", "")
 		
-	document.querySelector("#loading")?.remove()
 	level_indicator.textContent = `Current Hint: 1`;
-	gamewindow.classList.remove("hidden")
 	
 	audio.src = current_track.audios[0];
 	audio.load();
@@ -138,13 +136,11 @@ function loadNextLevel() {
 	audio.pause();
 	audio.src = current_track.audios[current_level];
 	audio.load();
-	//set level to incorrect
-	document.getElementById(`level-${current_level}`).classList.remove("current_hint")
-	document.getElementById(`level-${current_level}`).classList.add("wrong")
+	document.getElementById(`level-${current_level}`).setAttribute("class", "wrong");
 	current_level += 1;
 	level_indicator.textContent = `Current Hint: ${current_level}`;
 
-	document.getElementById(`level-${current_level}`).classList.add("current_hint")
+	document.getElementById(`level-${current_level}`).classList.add("current_hint");
 }
 
 function submit() {
